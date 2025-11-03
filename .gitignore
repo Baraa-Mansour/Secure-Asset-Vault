@@ -1,0 +1,50 @@
+# Build outputs
+[Bb]in/
+[Oo]bj/
+
+# Visual Studio files
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+*.sln
+*.http
+
+# Rider IDE
+.idea/
+
+# VS Code
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# App settings (CRITICAL - never commit secrets!)
+appsettings.Development.json
+appsettings.Production.json
+appsettings.Staging.json
+appsettings.local.json
+/appsettings.json
+
+# Entity Framework
+Migrations/
+
+# Debug files
+launchSettings.json
+
+# NuGet
+.nuget/
+*.nupkg
+packages/
+
+# Docker
+Dockerfile
+.dockerignore
+
+**/bin/
+**/obj/
+**/.vs/
+**/*.user
+**/packages/
