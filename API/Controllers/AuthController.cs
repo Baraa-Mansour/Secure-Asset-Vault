@@ -51,7 +51,7 @@ namespace API.Controllers
 
         [HttpPost("login")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(LoginResponse),StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<LoginResponse>> Login([FromBody]LoginRequest request)
@@ -67,7 +67,7 @@ namespace API.Controllers
 
                 if(response is null)
                 {
-                    return Unauthorized("Invalid Username/Email or password");
+                    return NotFound("Invalid Username/Email or password");
                 }
 
                 return Ok(response);
