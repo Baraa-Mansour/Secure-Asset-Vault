@@ -10,7 +10,7 @@ namespace Core.Interfaces
 {
     public interface IAuthService
     {
-        public Task<LoginResponse> LoginAsync(LoginRequest request);
-        public Task<RegisterResponse> RegisterAsync(RegisterRequest request);
+        public Task<LoginResponse> LoginAsync(LoginRequest userInfo);
+        public Task<RegisterResponse> RegisterAsync(RegisterRequest userInfo);
     }
 }

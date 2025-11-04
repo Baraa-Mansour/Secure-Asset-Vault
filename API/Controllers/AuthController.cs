@@ -17,6 +17,7 @@ namespace API.Controllers
         }
 
 
+        // <start>
         [HttpPost("register")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(RegisterResponse),StatusCodes.Status200OK)]
@@ -48,10 +49,12 @@ namespace API.Controllers
                 return StatusCode(500, ex.Message);
             }
         }
+        // </end>
 
+        // <start>
         [HttpPost("login")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(typeof(LoginResponse),StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<LoginResponse>> Login([FromBody]LoginRequest request)
@@ -67,7 +70,7 @@ namespace API.Controllers
 
                 if(response is null)
                 {
-                    return NotFound("Invalid Username/Email or password");
+                    return Unauthorized("Invalid Username/Email or password");
                 }
 
                 return Ok(response);
@@ -77,5 +80,6 @@ namespace API.Controllers
                 return StatusCode(500, ex.Message);
             }
         }
+        // </end>
     }
 }
