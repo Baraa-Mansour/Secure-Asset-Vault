@@ -1,6 +1,7 @@
 ﻿
 namespace Core.Responses;
 
+
 public class VaultResponse
 {
     public int Id { get; set; }
@@ -8,4 +9,3 @@ public class VaultResponse
     public string? Description { get; set; } = null;
     public DateTime CreatedAt { get; set; }
 }
-

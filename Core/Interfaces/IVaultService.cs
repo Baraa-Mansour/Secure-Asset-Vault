@@ -3,6 +3,7 @@ using Core.Responses;
 
 namespace Core.Interfaces;
 
+
 public interface IVaultService
 {
     public Task<List<VaultResponse>> GetVaultsByUserIdAsync(int userId);
