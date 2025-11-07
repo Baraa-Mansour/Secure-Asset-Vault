@@ -131,6 +131,7 @@ public class VaultItemsController : ControllerBase
     }
     // </end>
 
+    // <start>
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(VaultItemsResponse), StatusCodes.Status201Created)]

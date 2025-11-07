@@ -37,7 +37,7 @@ public class AuthController : ControllerBase
 
             return Ok(response);
         }
-        catch (InvalidDataException ex) when (ex.Message.Contains("already registered"))
+        catch (InvalidDataException ex) when (ex.Message.Contains("already exists"))
         {
             return Conflict(ex.Message);
         }
@@ -67,7 +67,7 @@ public class AuthController : ControllerBase
                 return BadRequest(ModelState);
             }
 
-            LoginResponse response = await _authService.LoginAsync(request);
+            LoginResponse? response = await _authService.LoginAsync(request);
 
             if(response is null)
             {

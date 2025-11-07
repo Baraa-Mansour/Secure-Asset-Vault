@@ -1,4 +1,4 @@
---CREATE DATABASE AssetVault;
+CREATE DATABASE AssetVault;
 
 USE AssetVault
 
