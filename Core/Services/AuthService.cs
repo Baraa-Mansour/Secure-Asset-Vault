@@ -50,12 +50,7 @@ public class AuthService : IAuthService
     {
         UserModel? user = await _userRepo.FindUserByUsernameOrEmailAsync(userInfo.UsernameOrEmail);
 
-        if(user == null)
-        {
-            return null;
-        }
-
-        if(!_hasher.Verify(userInfo.Password , user.PasswordHash , user.PasswordSalt))
+        if(user == null|| !_hasher.Verify(userInfo.Password, user.PasswordHash, user.PasswordSalt))
         {
             return null;
         }
