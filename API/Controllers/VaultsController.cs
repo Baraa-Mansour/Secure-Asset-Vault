@@ -47,6 +47,10 @@ public class VaultsController : ControllerBase
         {
             return NotFound(ex.Message);
         }
+        catch(UnauthorizedAccessException ex)
+        {
+            return Unauthorized(ex.Message);
+        }
         catch (Exception ex)
         {
             return StatusCode(500, $"Something went wrong: {ex.Message}!");
