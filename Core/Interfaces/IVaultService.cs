@@ -1,5 +1,6 @@
 ﻿using Core.Requests;
 using Core.Responses;
+using DataAccess.Models;
 
 namespace Core.Interfaces;
 
@@ -10,4 +11,5 @@ public interface IVaultService
     public Task<VaultResponse> CreateVaultByUserIdAsync(VaultRequest vault , int userId);
     public Task<bool> UpdateVaultByUserIdAsync(int vaultId , int userId  , VaultRequest vault);
     public Task<bool> DeleteVaultByUserIdAsync(int vaultId, int userId);
+    public Task<VaultModel> CheckVaultExistsAndOwnerAsync(int vaultId, int userId);
 }

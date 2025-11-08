@@ -2,13 +2,13 @@
 
 namespace Core.Utilities;
 
-public interface IHasher
+public interface IHashService
 {
     public (byte[] Hash, byte[] Salt) Hash(string password);
     public bool Verify(string password, byte[] storedHash, byte[] storedSalt);
 }
 
-public class Hasher : IHasher
+public class HashService : IHashService
 {
     private const int _saltSize = 16;
     private const int _hashSize = 32;

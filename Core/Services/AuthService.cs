@@ -10,10 +10,10 @@ namespace Core.Services;
 public class AuthService : IAuthService
 {
     private readonly IUserRepo _userRepo;
-    private readonly IHasher _hasher;
+    private readonly IHashService _hasher;
     private readonly IJwtService _jwtService;
 
-    public AuthService(IUserRepo userRepo , IHasher hasher , IJwtService jwtService)
+    public AuthService(IUserRepo userRepo , IHashService hasher , IJwtService jwtService)
     {
         _userRepo = userRepo;
         _hasher = hasher;

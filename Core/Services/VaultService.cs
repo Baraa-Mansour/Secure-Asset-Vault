@@ -19,7 +19,7 @@ public class VaultService : IVaultService
 
     public async Task<List<VaultResponse>> GetVaultsByUserIdAsync(int userId)
     {
-        await _userService.CheckUser(userId);
+        await _userService.CheckUserAsync(userId);
 
         List<VaultModel> vaults = await _vaultRepo.GetVaultsByUserIdAsync(userId);
         List<VaultResponse> result = new();
@@ -33,7 +33,7 @@ public class VaultService : IVaultService
     }
     public async Task<VaultResponse> CreateVaultByUserIdAsync(VaultRequest vault, int userId)
     {
-        await _userService.CheckUser(userId);
+        await _userService.CheckUserAsync(userId);
 
         VaultModel vaultModel = _MapVaultRequestAndUserIdToVaultModel(vault, userId);
 
@@ -43,9 +43,9 @@ public class VaultService : IVaultService
     }
     public async Task<bool> UpdateVaultByUserIdAsync(int vaultId, int userId, VaultRequest vault)
     {
-        await _userService.CheckUser(userId);
+        await _userService.CheckUserAsync(userId);
 
-        VaultModel vaultModel = await CheckVaultExistsAndOwner(vaultId, userId); 
+        VaultModel vaultModel = await CheckVaultExistsAndOwnerAsync(vaultId, userId); 
 
         vaultModel.Name = vault.Name;
         vaultModel.Description = vault.Description;
@@ -56,9 +56,9 @@ public class VaultService : IVaultService
     }
     public async Task<bool> DeleteVaultByUserIdAsync(int vaultId, int userId)
     {
-        await _userService.CheckUser(userId);
+        await _userService.CheckUserAsync(userId);
 
-        await CheckVaultExistsAndOwner(vaultId, userId);
+        await CheckVaultExistsAndOwnerAsync(vaultId, userId);
 
 
         bool isDeleted = await _vaultRepo.DeleteVaultAsync(vaultId);
@@ -67,7 +67,7 @@ public class VaultService : IVaultService
     }
 
  
-    public async Task<VaultModel> CheckVaultExistsAndOwner(int vaultId , int userId)
+    public async Task<VaultModel> CheckVaultExistsAndOwnerAsync(int vaultId , int userId)
     {
         VaultModel vaultModel = await _vaultRepo.GetVaultsByIdAsync(vaultId);
 

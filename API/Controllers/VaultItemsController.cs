@@ -60,11 +60,11 @@ public class VaultItemsController : ControllerBase
     // <start>
     [HttpGet("{itemId}")]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(typeof(VaultItemsResponse), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(VaultItemsDetailedResponse), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<ActionResult<VaultItemsResponse>> GetVaultItemByIdAsync([FromRoute] int vaultId , [FromRoute] int itemId)
+    public async Task<ActionResult<VaultItemsDetailedResponse>> GetVaultItemByIdAsync([FromRoute] int vaultId , [FromRoute] int itemId)
     {
         try
         {
@@ -75,7 +75,7 @@ public class VaultItemsController : ControllerBase
 
             int userId = int.Parse(User.FindFirst(JwtRegisteredClaimNames.Sub)?.Value!);
 
-            VaultItemsResponse vaultItems = await _vaultItemsService.GetVaultItemByUserIdAndVaultIdAndItemIdAsync(userId, vaultId , itemId);
+            VaultItemsDetailedResponse vaultItems = await _vaultItemsService.GetVaultItemByUserIdAndVaultIdAndItemIdAsync(userId, vaultId , itemId);
 
             return Ok(vaultItems);
         }

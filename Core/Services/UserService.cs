@@ -13,7 +13,7 @@ public class UserService : IUserService
         _userRepo = userRepo;
     }
 
-    public async Task CheckUser(int userId)
+    public async Task CheckUserAsync(int userId)
     {
         UserModel? user = await _userRepo.GetUserAsync(userId);
 
