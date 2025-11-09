@@ -4,6 +4,7 @@ using Core.Responses;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 
 namespace API.Controllers;
 
@@ -36,7 +37,7 @@ public class VaultItemsController : ControllerBase
                 return BadRequest(ModelState);
             }
 
-            int userId = int.Parse(User.FindFirst(JwtRegisteredClaimNames.Sub)?.Value!);
+            int userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value!);
 
             List<VaultItemsResponse> vaultItems = await _vaultItemsService.GetVaultItemsByUserIdAndVaultIdAsync(userId , vaultId);
 
@@ -73,7 +74,7 @@ public class VaultItemsController : ControllerBase
                 return BadRequest(ModelState);
             }
 
-            int userId = int.Parse(User.FindFirst(JwtRegisteredClaimNames.Sub)?.Value!);
+            int userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value!);
 
             VaultItemsDetailedResponse vaultItems = await _vaultItemsService.GetVaultItemByUserIdAndVaultIdAndItemIdAsync(userId, vaultId , itemId);
 
@@ -110,7 +111,7 @@ public class VaultItemsController : ControllerBase
                 return BadRequest(ModelState);
             }
 
-            int userId = int.Parse(User.FindFirst(JwtRegisteredClaimNames.Sub)?.Value!);
+            int userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value!);
 
             bool isDeleted = await _vaultItemsService.DeleteVaultItemByUserIdAndVaultIdAndItemIdAsync(userId, vaultId, itemId);
 
@@ -147,7 +148,7 @@ public class VaultItemsController : ControllerBase
                 return BadRequest(ModelState);
             }
 
-            int userId = int.Parse(User.FindFirst(JwtRegisteredClaimNames.Sub)?.Value!);
+            int userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value!);
 
             VaultItemsResponse response = await _vaultItemsService.CreateVaultItemAsync(userId, vaultId, request);
 

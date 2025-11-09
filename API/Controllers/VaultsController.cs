@@ -4,6 +4,7 @@ using Core.Responses;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 
 namespace API.Controllers;
 
@@ -37,7 +38,7 @@ public class VaultsController : ControllerBase
                 return BadRequest(ModelState);
             }
 
-            int userId = int.Parse(User.FindFirst(JwtRegisteredClaimNames.Sub)?.Value!);
+            int userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value!);
 
             List<VaultResponse> vaults = await _vaultService.GetVaultsByUserIdAsync(userId);
 
@@ -74,7 +75,7 @@ public class VaultsController : ControllerBase
                 return BadRequest(ModelState);
             }
 
-            int userId = int.Parse(User.FindFirst(JwtRegisteredClaimNames.Sub)?.Value!);
+            int userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value!);
 
             VaultResponse response = await _vaultService.CreateVaultByUserIdAsync(request , userId);
 
@@ -111,7 +112,7 @@ public class VaultsController : ControllerBase
                 return BadRequest(ModelState);
             }
 
-            int userId = int.Parse(User.FindFirst(JwtRegisteredClaimNames.Sub)?.Value!);
+            int userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value!);
 
             bool isUpdated = await _vaultService.UpdateVaultByUserIdAsync(vaultId, userId, request);
 
@@ -156,7 +157,7 @@ public class VaultsController : ControllerBase
                 return BadRequest(ModelState);
             }
 
-            int userId = int.Parse(User.FindFirst(JwtRegisteredClaimNames.Sub)?.Value!);
+            int userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value!);
 
             bool isDeleted = await _vaultService.DeleteVaultByUserIdAsync(vaultId, userId);
 

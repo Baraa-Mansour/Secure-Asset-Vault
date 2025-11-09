@@ -55,7 +55,7 @@ public class VaultItemsService : IVaultItemsService
         await _vaultService.CheckVaultExistsAndOwnerAsync(vaultId, userId);
 
         (byte[] key, byte[] IV, byte[] encryptedData) = _encryptionService.Encrypt(request.Data);
-        byte[] encryptedKey = _encryptionService.EncryptKey(key, BitConverter.GetBytes(userId), IV); // master keey is userId->byte[] for learn 
+        byte[] encryptedKey = _encryptionService.EncryptKey(key,Encoding.UTF8.GetBytes("12345678901234567890123456789012"), IV); // master keey is fixed for learn 
 
         VaultItemModel item = new VaultItemModel
         {
@@ -81,8 +81,8 @@ public class VaultItemsService : IVaultItemsService
 
         VaultItemModel vaultItem = await ItemExistsAndInVaultAsync(vaultId, itemId);
 
-        // master keey is userId->byte[] for learn 
-        byte[] decryptedKey = _encryptionService.DecryptKey(vaultItem.EncryptedKey_ForUser, BitConverter.GetBytes(userId), vaultItem.IV);
+        // master keey is fixed for learn 
+        byte[] decryptedKey = _encryptionService.DecryptKey(vaultItem.EncryptedKey_ForUser,Encoding.UTF8.GetBytes("12345678901234567890123456789012"),vaultItem.IV);
         string Data = _encryptionService.Decrypt(vaultItem.EncryptedData , decryptedKey , vaultItem.IV);
 
         return new VaultItemsDetailedResponse

@@ -5,7 +5,7 @@ using System.Data;
 
 namespace DataAccess.Repositories;
 
-class UserRepo : IUserRepo
+public class UserRepo : IUserRepo
 {
     private readonly string _connectionString;
 

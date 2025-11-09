@@ -29,8 +29,10 @@ public class JwtService : IJwtService
 
         var claims = new[]
         {
+            new Claim(ClaimTypes.NameIdentifier, userId.ToString()), // ✅ for extracting userId
+            new Claim(ClaimTypes.Name, username),                    // ✅ for extracting username
             new Claim(JwtRegisteredClaimNames.Sub, userId.ToString()),
-            new Claim(JwtRegisteredClaimNames.UniqueName, username),
+            new Claim(JwtRegisteredClaimNames.UniqueName, username)
         };
 
         var token = new JwtSecurityToken(

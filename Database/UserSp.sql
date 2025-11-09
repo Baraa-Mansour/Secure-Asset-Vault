@@ -11,5 +11,5 @@ BEGIN
 	INSERT INTO Users (Username, Email, PasswordHash, PasswordSalt, CreatedAt, IsActive, IsDeleted)
 	VALUES (@userName , @email , @passwordHash , @passwordSalt,
 			@createdAt , @isActive , @isDeleted);
-	SELECT SCOPE_IDENTITY();
+	SELECT CAST(SCOPE_IDENTITY() AS INT);
 END
