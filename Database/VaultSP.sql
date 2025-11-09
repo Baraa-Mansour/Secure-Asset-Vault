@@ -1,0 +1,19 @@
+CREATE PROCEDURE SP_DeleteVaultAndItems
+	@vaultId INT
+AS
+BEGIN
+	BEGIN TRANSACTION
+		BEGIN TRY
+			DELETE FROM VaultItems
+			WHERE VaultItems.VaultId = @vaultId;
+	
+			DELETE FROM Vaults
+			WHERE Vaults.Id = @vaultId;
+
+			COMMIT TRANSACTION
+		END TRY
+		BEGIN CATCH
+			ROLLBACK TRANSACTION
+			THROW
+		END CATCH
+END

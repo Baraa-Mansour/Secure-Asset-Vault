@@ -103,7 +103,7 @@ public class VaultItemsService : IVaultItemsService
     }
     public async Task<VaultItemModel> ItemExistsAndInVaultAsync(int vaultId ,  int itemId)
     {
-        VaultItemModel item = await _vaultItemsRepo.GetItemByIdAsync(itemId);
+        VaultItemModel? item = await _vaultItemsRepo.GetItemByIdAsync(itemId);
 
         if(item is null)
         {

@@ -69,7 +69,7 @@ public class VaultService : IVaultService
  
     public async Task<VaultModel> CheckVaultExistsAndOwnerAsync(int vaultId , int userId)
     {
-        VaultModel vaultModel = await _vaultRepo.GetVaultsByIdAsync(vaultId);
+        VaultModel? vaultModel = await _vaultRepo.GetVaultsByIdAsync(vaultId);
 
         if (vaultModel is null)
         {
