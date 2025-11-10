@@ -24,6 +24,7 @@ string connectionString = builder.Configuration.GetConnectionString("DefaultConn
 builder.Services.AddScoped<IUserRepo>(_ => new UserRepo(connectionString));
 builder.Services.AddScoped<IVaultRepo>(_ => new VaultRepo(connectionString));
 builder.Services.AddScoped<IVaultItemsRepo>(_ => new VaultItemsRepo(connectionString));
+builder.Services.AddSingleton<IAuditLogsRepo>(_ => new AuditLogsRepo(connectionString));
 //
 
 // Register Services
@@ -31,9 +32,10 @@ builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IVaultService, VaultService>();
 builder.Services.AddScoped<IVaultItemsService, VaultItemsService>();
-builder.Services.AddScoped<IHashService, HashService>();
-builder.Services.AddScoped<IEncryptionService, EncryptionService>();
-builder.Services.AddScoped<IJwtService, JwtService>();
+
+builder.Services.AddSingleton<IHashService, HashService>();
+builder.Services.AddSingleton<IEncryptionService, EncryptionService>();
+builder.Services.AddSingleton<IJwtService, JwtService>();
 //
 
 // JWT Authentication

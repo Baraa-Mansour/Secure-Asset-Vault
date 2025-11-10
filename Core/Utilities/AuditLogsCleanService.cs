@@ -6,7 +6,8 @@ namespace Core.Utilities;
 public class AuditLogsCleanService : IHostedService , IDisposable
 {
     private readonly IAuditLogsRepo _logsRepo;
-    private readonly Timer _timer = null!;
+    private readonly SemaphoreSlim _semaphore = new(1, 1);
+    private readonly Timer _timer;
 
     public AuditLogsCleanService(IAuditLogsRepo logsRepo)
     {
@@ -21,17 +22,26 @@ public class AuditLogsCleanService : IHostedService , IDisposable
 
     public void DoWork(object? state)
     {
-        _ = Task.Run(async () =>
+        // Prevent overlapping executions
+        if (_semaphore.Wait(0))
         {
-            try
+            _ = Task.Run(async () =>
             {
-                await _logsRepo.ClearOldLogsAsync(DateTime.UtcNow.AddDays(-30));
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex);
-            }
-        });
+                try
+                {
+                    await _logsRepo.ClearOldLogsAsync(DateTime.UtcNow.AddDays(-30));
+                }
+                catch (Exception ex)
+                {
+                    // Use proper logging instead of Console
+                    Console.WriteLine($"Audit log cleanup failed: {ex.Message}");
+                }
+                finally
+                {
+                    _semaphore.Release();
+                }
+            });
+        }
     }
 
     public Task StopAsync(CancellationToken cancellationToken)
