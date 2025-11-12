@@ -18,7 +18,7 @@ public class VaultItemsService : IVaultItemsService
     private readonly ILogger<VaultItemsService> _logger;
 
     public VaultItemsService(IVaultService vaultService, IUserService userService , IVaultItemsRepo vaultItemsRepo , IEncryptionService encryptionService 
-                             ,Logger<VaultItemsService> logger)
+                             ,ILogger<VaultItemsService> logger)
     {
         _userService = userService;
         _vaultService = vaultService;
