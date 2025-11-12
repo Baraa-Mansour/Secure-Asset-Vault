@@ -5,9 +5,19 @@ using DataAccess.Interfaces;
 using DataAccess.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using Serilog;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Create Logger
+Log.Logger = new LoggerConfiguration()
+    .WriteTo.Console()
+    .WriteTo.File("Logs/logs-.txt", rollingInterval: RollingInterval.Infinite)
+    .Enrich.FromLogContext()
+    .CreateLogger();
+builder.Host.UseSerilog();
+//
 
 // Add services to the container
 builder.Services.AddControllers();
