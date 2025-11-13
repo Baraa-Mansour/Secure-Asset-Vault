@@ -64,7 +64,7 @@ public class VaultItemsController : ControllerBase
     // </end>
 
     // <start>
-    [HttpGet("{itemId}")]
+    [HttpGet("{itemId:int:min(1)}")]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(VaultItemsDetailedResponse), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -104,7 +104,7 @@ public class VaultItemsController : ControllerBase
     // </end>
 
     // <start>
-    [HttpDelete("{itemId}")]
+    [HttpDelete("{itemId:int:min(1)}")]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]

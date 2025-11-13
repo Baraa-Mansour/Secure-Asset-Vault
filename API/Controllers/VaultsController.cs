@@ -105,7 +105,7 @@ public class VaultsController : ControllerBase
     // </end>
 
     // <start>
-    [HttpPut("{vaultId}")]
+    [HttpPut("{vaultId:int:min(1)}")]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
@@ -153,7 +153,7 @@ public class VaultsController : ControllerBase
     // </end>
 
     // <start>
-    [HttpDelete("{vaultId}")]
+    [HttpDelete("{vaultId:int:min(1)}")]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
