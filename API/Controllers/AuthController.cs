@@ -2,6 +2,8 @@
 using Core.Requests;
 using Core.Responses;
 using Core.Interfaces;
+using Core.Utilities.Attributes;
+using Core.Utilities.Filters;
 
 namespace API.Controllers;
 
@@ -24,6 +26,9 @@ public class AuthController : ControllerBase
     [ProducesResponseType(typeof(RegisterResponse),StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status409Conflict)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    // workflow
+    [LogAction]
+    [ServiceFilter(typeof(LogActionFilter))]
     public async Task<ActionResult<RegisterResponse>> Register([FromBody]RegisterRequest request)
     {
         try
@@ -58,6 +63,9 @@ public class AuthController : ControllerBase
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(typeof(LoginResponse),StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    // workflow
+    [LogAction]
+    [ServiceFilter(typeof(LogActionFilter))]
     public async Task<ActionResult<LoginResponse>> Login([FromBody]LoginRequest request)
     {
         try

@@ -15,15 +15,15 @@ public class AuditLogsRepo : IAuditLogsRepo
 
     public async Task AddLogAsync(AuditLogsModel logsModel)
     {
-        const string query = @"INSERT INTO AuditLogs (UserId, Action, ResorceId, Message, IpAddress, TimeStamp, Severity)
-                               VALUES (@UserId, @Action, @ResorceId, @Message, @IpAddress, @TimeStamp, @Severity)";
+        const string query = @"INSERT INTO AuditLogs (UserId, Action, ResourceId, Message, IpAddress, TimeStamp, Severity)
+                               VALUES (@UserId, @Action, @ResourceId, @Message, @IpAddress, @TimeStamp, @Severity)";
 
         using var connection = new SqlConnection(_connectionString);
         using var command = new SqlCommand(query, connection);
 
         command.Parameters.AddWithValue("@UserId", logsModel.UserId ?? (object)DBNull.Value);
         command.Parameters.AddWithValue("@Action", logsModel.Action);
-        command.Parameters.AddWithValue("@ResorceId", logsModel.ResourceId ?? (object)DBNull.Value);
+        command.Parameters.AddWithValue("@ResourceId", logsModel.ResourceId ?? (object)DBNull.Value);
         command.Parameters.AddWithValue("@Message", logsModel.Message ?? (object)DBNull.Value);
         command.Parameters.AddWithValue("@IpAddress", logsModel.IpAddress ?? (object)DBNull.Value);
         command.Parameters.AddWithValue("@TimeStamp", logsModel.TimeStamp);

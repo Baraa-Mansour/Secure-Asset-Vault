@@ -1,6 +1,6 @@
 ﻿using System.Security.Cryptography;
 
-namespace Core.Utilities;
+namespace Core.Utilities.Services;
 
 public interface IHashService
 {

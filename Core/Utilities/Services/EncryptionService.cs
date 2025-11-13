@@ -1,8 +1,7 @@
-﻿
-using System.Security.Cryptography;
+﻿using System.Security.Cryptography;
 using System.Text;
 
-namespace Core.Utilities;
+namespace Core.Utilities.Services;
 
 public interface IEncryptionService
 {

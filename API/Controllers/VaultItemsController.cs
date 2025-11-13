@@ -1,6 +1,8 @@
 ﻿using Core.Interfaces;
 using Core.Requests;
 using Core.Responses;
+using Core.Utilities.Attributes;
+using Core.Utilities.Filters;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.IdentityModel.Tokens.Jwt;
@@ -28,6 +30,9 @@ public class VaultItemsController : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    // workflow
+    [LogAction]
+    [ServiceFilter(typeof(LogActionFilter))]
     public async Task<ActionResult<IEnumerable<VaultItemsResponse>>> GetVaultItemsAsync([FromRoute]int vaultId)
     {
         try
@@ -65,6 +70,9 @@ public class VaultItemsController : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    // workflow
+    [LogAction]
+    [ServiceFilter(typeof(LogActionFilter))]
     public async Task<ActionResult<VaultItemsDetailedResponse>> GetVaultItemByIdAsync([FromRoute] int vaultId , [FromRoute] int itemId)
     {
         try
@@ -102,6 +110,9 @@ public class VaultItemsController : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    // workflow
+    [LogAction]
+    [ServiceFilter(typeof(LogActionFilter))]
     public async Task<ActionResult> DeleteVaultItemByIdAsync([FromRoute] int vaultId, [FromRoute] int itemId)
     {
         try
@@ -139,6 +150,9 @@ public class VaultItemsController : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    // workflow
+    [LogAction]
+    [ServiceFilter(typeof(LogActionFilter))]
     public async Task<ActionResult<VaultItemsResponse>> CreateVaultItemAsync([FromRoute] int vaultId , [FromBody]VaultItemRequest request)
     {
         try

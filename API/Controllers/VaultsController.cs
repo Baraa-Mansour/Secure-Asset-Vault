@@ -1,6 +1,8 @@
 ﻿using Core.Interfaces;
 using Core.Requests;
 using Core.Responses;
+using Core.Utilities.Attributes;
+using Core.Utilities.Filters;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.IdentityModel.Tokens.Jwt;
@@ -29,6 +31,9 @@ public class VaultsController : ControllerBase
     [ProducesResponseType(typeof(IEnumerable<VaultResponse>),StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    // workflow
+    [LogAction]
+    [ServiceFilter(typeof(LogActionFilter))]
     public async Task<ActionResult<IEnumerable<VaultResponse>>> GetUserVaultsAsync()
     {
         try
@@ -66,6 +71,9 @@ public class VaultsController : ControllerBase
     [ProducesResponseType(typeof(VaultResponse), StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    // workflow
+    [LogAction]
+    [ServiceFilter(typeof(LogActionFilter))]
     public async Task<ActionResult<VaultResponse>> CreateUserVaultAsync([FromBody]VaultRequest request)
     {
         try
@@ -103,6 +111,9 @@ public class VaultsController : ControllerBase
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    // workflow
+    [LogAction]
+    [ServiceFilter(typeof(LogActionFilter))]
     public async Task<ActionResult> UpdateUserVaultAsync([FromRoute]int vaultId, [FromBody]VaultRequest request)
     {
         try
@@ -148,6 +159,9 @@ public class VaultsController : ControllerBase
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    // workflow
+    [LogAction]
+    [ServiceFilter(typeof(LogActionFilter))]
     public async Task<ActionResult> DeleteUserVaultAsync([FromRoute] int vaultId)
     {
         try

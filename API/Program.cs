@@ -1,6 +1,7 @@
 using Core.Interfaces;
 using Core.Services;
-using Core.Utilities;
+using Core.Utilities.Filters;
+using Core.Utilities.Services;
 using DataAccess.Interfaces;
 using DataAccess.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -24,6 +25,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddHostedService<AuditLogsCleanService>();
+builder.Services.AddScoped<LogActionFilter>();
 //
 
 // Load connection string

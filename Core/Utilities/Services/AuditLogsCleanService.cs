@@ -1,18 +1,21 @@
 ﻿using DataAccess.Interfaces;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 
-namespace Core.Utilities;
+namespace Core.Utilities.Services;
 
 public class AuditLogsCleanService : IHostedService , IDisposable
 {
+    private readonly ILogger<AuditLogsCleanService> _logger;
     private readonly IAuditLogsRepo _logsRepo;
     private readonly SemaphoreSlim _semaphore = new(1, 1);
     private readonly Timer _timer;
 
-    public AuditLogsCleanService(IAuditLogsRepo logsRepo)
+    public AuditLogsCleanService(IAuditLogsRepo logsRepo , ILogger<AuditLogsCleanService> logger)
     {
         _timer = new Timer(DoWork, null, TimeSpan.Zero, TimeSpan.FromMinutes(5));
         _logsRepo = logsRepo;
+        _logger = logger;
     }
 
     public Task StartAsync(CancellationToken cancellationToken)
@@ -33,8 +36,7 @@ public class AuditLogsCleanService : IHostedService , IDisposable
                 }
                 catch (Exception ex)
                 {
-                    // Use proper logging instead of Console
-                    Console.WriteLine($"Audit log cleanup failed: {ex.Message}");
+                    _logger.LogInformation("Audit log cleanup failed: {ex.Message}" , ex.Message);
                 }
                 finally
                 {
@@ -46,7 +48,7 @@ public class AuditLogsCleanService : IHostedService , IDisposable
 
     public Task StopAsync(CancellationToken cancellationToken)
     {
-        this.Dispose();
+        Dispose();
         return Task.CompletedTask;
     }
 

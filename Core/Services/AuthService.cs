@@ -1,7 +1,7 @@
 ﻿using Core.Interfaces;
 using Core.Requests;
 using Core.Responses;
-using Core.Utilities;
+using Core.Utilities.Services;
 using DataAccess.Interfaces;
 using DataAccess.Models;
 using Microsoft.Extensions.Logging;
