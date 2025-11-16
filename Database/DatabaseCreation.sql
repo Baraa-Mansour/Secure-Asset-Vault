@@ -1,5 +1,3 @@
-CREATE DATABASE AssetVault;
-
 USE AssetVault
 
 CREATE TABLE Users(
