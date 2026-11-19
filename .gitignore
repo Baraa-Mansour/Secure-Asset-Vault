@@ -20,28 +20,24 @@
 .DS_Store
 Thumbs.db
 
-# App settings (CRITICAL - never commit secrets!)
-appsettings.Development.json
-appsettings.Production.json
-appsettings.Staging.json
-appsettings.local.json
-/appsettings.json
+# Application configuration (never commit local secrets)
+**/appsettings.json
+**/appsettings.*.json
+!**/appsettings.Example.json
+
+# Runtime logs
+**/Logs/
+*.log
 
 # Entity Framework
 Migrations/
-
-# Debug files
-launchSettings.json
 
 # NuGet
 .nuget/
 *.nupkg
 packages/
 
-# Docker
-Dockerfile
-.dockerignore
-
+# Recursive build and IDE artifacts
 **/bin/
 **/obj/
 **/.vs/
